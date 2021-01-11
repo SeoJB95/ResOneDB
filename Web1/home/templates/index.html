@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="/students">
+            <div class ="jumbotron text-center" style="background-image :linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%),url({% static 'image/hullform.png' %});background-size:cover">
+              <h3 style ='color:white'>Hullform</h3>
+              <p style ='color:white'>hull DB</p>
+            </div>
+          </a>
+          <button type="button" class="btn btn-primary btn-block">Go To DB</button>
+        </div>
+
+        <!--
+        <div class="col-md-4">
+          <div class="overlay"></div>
+          <video style="width:100%;height:auto;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="/static/image/test.mp4" type="video/mp4">
+          </video>
+          -->
+
+        <div class="col-md-4">
+          <a href="httpL//naver.com' %}">
+            <div class ="jumbotron text-center" style="background-image :linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%),url({% static '/image/EFD.jpg' %});background-size:cover ">
+              <h3 style="color:white">EFD</h3>
+              <p style="color:white">Experiment DB</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="http://naver.com">
+            <div class ="jumbotron text-center" style="background-image :linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%),url(https://ars.els-cdn.com/content/image/1-s2.0-S2092678217303758-gr13.jpg);background-size:cover;background-position:center">
+              <h3 style="color:white">CFD</h3>
+              <p style="color:white">Numerical analysis DB</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
