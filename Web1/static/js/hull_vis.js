@@ -25,21 +25,24 @@ var partDrawing = function(LinesDictionary,material){
       }
       return lineList
 }
-var importHull = function(inputjson,scene,material){
+var importHull = function(inputjson,scene){
   //TEST!!
   //{% autoescape off %}
   //var hull = JSON.parse('{{testjson}}')
   var hull = JSON.parse(inputjson)
   //{% endautoescape %}
   //const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+  var material = new THREE.LineBasicMaterial( { color: 0x59ACF7 } );
   var FWLs = partDrawing(hull.Waterline.Fore,material);
   FWLs.forEach(function(wl){scene.add(wl);})
   var AWLs = partDrawing(hull.Waterline.After,material);
   AWLs.forEach(function(wl){scene.add(wl);})
+  var material = new THREE.LineBasicMaterial( { color: 0x45EA45 } );
   var Fsts = partDrawing(hull.Station.After,material);
   Fsts.forEach(function(wl){scene.add(wl);})
   var Asts = partDrawing(hull.Station.Fore,material);
   Asts.forEach(function(wl){scene.add(wl);})
+  var material = new THREE.LineBasicMaterial( { color: 0xFFFFFF } );
   scene.add(onelineDrawing(hull.STEM,material));
   scene.add(onelineDrawing(hull.STERN,material));
   scene.add(onelineDrawing(hull.STERN,material));
@@ -47,6 +50,7 @@ var importHull = function(inputjson,scene,material){
   scene.add(onelineDrawing(hull.FOBF,material));
   scene.add(onelineDrawing(hull.FOSA,material));
   scene.add(onelineDrawing(hull.FOSF,material));
+  var material = new THREE.LineBasicMaterial( { color: 0xFF0000 } );
   scene.add(onelineDrawing(hull.Boss,material));
 
 
