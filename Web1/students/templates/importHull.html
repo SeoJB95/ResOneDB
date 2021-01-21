@@ -14,7 +14,7 @@
     <script type="module">
       import {NURBSCurve} from "{% static 'js/NURBSCurve.js' %}";
       import { TrackballControls } from "{% static 'js/TrackballControls.js' %}";
-
+      import {importHull} from "{% static 'js/hull_vis.js' %}";
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xf0f0f0);
       // Camera
@@ -51,101 +51,13 @@
       controls.panSpeed = 1.2;
       controls.keys = [ 65, 83, 68 ];
 
+
+
       const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
 
-
-
-      var importHull = function(){
-        //TEST!!
-        {% autoescape off %}
-        var hull = JSON.parse('{{testjson}}')
-        {% endautoescape %}
-        var wlkey = Object.keys(hull.Waterline.Fore)
-        wlkey.forEach(function(element){
-            let controlPoints  =  [];
-            hull.Waterline.Fore[element].control.forEach(function(line){
-            controlPoints.push(new THREE.Vector3(line[0],line[1],line[2]))
-            })
-            let knots =hull.Waterline.Fore[element].U;
-            let curve = new NURBSCurve( 3, knots, controlPoints, 0, 0 );
-      			let vertices = curve.getPoints( controlPoints.length * 7 );
-      			let positions = new Float32Array( vertices.length * 3 );
-      			vertices.forEach( function ( vertex, i ) {
-      				vertex.toArray( positions, i * 3 );
-      			});
-
-      			let geometry = new THREE.BufferGeometry();
-      			geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-            let line_gl = new THREE.Line(geometry,material);
-            scene.add(line_gl);
-        })
-        var wlakey = Object.keys(hull.Waterline.After)
-        wlakey.forEach(function(element){
-            let controlPoints  =  [];
-            hull.Waterline.After[element].control.forEach(function(line){
-            controlPoints.push(new THREE.Vector3(line[0],line[1],line[2]))
-            })
-            let knots =hull.Waterline.After[element].U;
-            let curve = new NURBSCurve( 3, knots, controlPoints, 0, 0 );
-      			let vertices = curve.getPoints( controlPoints.length * 7 );
-      			let positions = new Float32Array( vertices.length * 3 );
-      			vertices.forEach( function ( vertex, i ) {
-      				vertex.toArray( positions, i * 3 );
-      			});
-
-      			let geometry = new THREE.BufferGeometry();
-      			geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-            let line_gl = new THREE.Line(geometry,material);
-            scene.add(line_gl);
-        })
-        var stfkey = Object.keys(hull.Station.Fore)
-        stfkey.forEach(function(element){
-            let controlPoints  =  [];
-            hull.Station.Fore[element].control.forEach(function(line){
-            controlPoints.push(new THREE.Vector3(line[0],line[1],line[2]))
-            })
-            let knots =hull.Station.Fore[element].U;
-            let curve = new NURBSCurve( 3, knots, controlPoints, 0, 0 );
-      			let vertices = curve.getPoints( controlPoints.length * 7 );
-      			let positions = new Float32Array( vertices.length * 3 );
-      			vertices.forEach( function ( vertex, i ) {
-      				vertex.toArray( positions, i * 3 );
-      			});
-
-      			let geometry = new THREE.BufferGeometry();
-      			geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-            let line_gl = new THREE.Line(geometry,material);
-            scene.add(line_gl);
-        })
-        /*
-        var special = [hull.STEM,hull.STERN,hull.FOBA,hull.FOBF,hull.FOSA,hull.FOSF]
-
-        special.forEach(function(line_ele){
-            let controlPoints  =  [];
-            line_ele.control.forEach(function(line){
-            controlPoints.push(new THREE.Vector3(line[0],line[1],line[2]))
-            })
-
-            let knots =line_ele.U;
-            let curve = new NURBSCurve( 3, knots, controlPoints, 0, 0 );
-      			let vertices = curve.getPoints( controlPoints.length * 7 );
-      			let positions = new Float32Array( vertices.length * 3 );
-      			vertices.forEach( function ( vertex, i ) {
-      				vertex.toArray( positions, i * 3 );
-      			});
-
-      			let geometry = new THREE.BufferGeometry();
-      			geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-            let line_gl = new THREE.Line(geometry,material);
-            scene.add(line_gl);
-        })
-        */
-
-
-
-      //import Hull end
-      }
-
+      {% autoescape off %}
+      importHull('{{testjson}}',scene,material)
+      {% endautoescape %}
       var render = function(){
         renderer.render( scene, camera );
     }
@@ -155,7 +67,6 @@
         render();
 
       }
-      importHull();
       animation();
     </script>
 

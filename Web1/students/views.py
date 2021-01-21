@@ -13,8 +13,6 @@ def list(request):
     Hull = project.hull['DS2500TEU_forPaper']
     #json=Hull.STEM.curve.ToJson()
     json = Hull.ToJson()
-    with open('/workspace/data/test.txt','w') as f1:
-        f1.writelines(json)
     #raise ValueError(Hull.stations.linesF)
     #return render(request, 'feedbacklist.html', {'feedbacks': students})
     return render(request, 'importHull.html',{'testjson':json})
