@@ -17,11 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
 from home import views
-from students import views as student_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.index),
     #path('students/',student_view.list)
-    path('students/',include('students.urls')),
-    path('leadship/',include('leadship.urls'))
+    path('leadship/',include('leadship.urls')),
 ]
