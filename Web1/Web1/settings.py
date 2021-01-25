@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'DBLoading',
-    'students',
+    'leadship',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +90,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'students',
+        'NAME': 'leadship',
         'USER': 'root',
         'PASSWORD':'0000',
         'HOST':'164.125.131.132',

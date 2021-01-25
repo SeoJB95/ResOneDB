@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.index),
     #path('students/',student_view.list)
-    path('students/',include('students.urls'))
+    path('students/',include('students.urls')),
+    path('leadship/',include('leadship.urls'))
 ]
