@@ -25,7 +25,7 @@ SECRET_KEY = '_v%d#q40rpzjw@&_n6uh6jfx2e$m$q-(-okh97v^76o!wir6bl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost','164.125.131.132']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost','164.125.131.132','164.125.131.13']
 
 
 # Application definition
@@ -75,7 +75,8 @@ WSGI_APPLICATION = 'Web1.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+'''
+#for Linux and mariadb on docker !!
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -86,8 +87,17 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
-
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'students',
+        'USER': 'root',
+        'PASSWORD':'0000',
+        'HOST':'164.125.131.132',
+        'PORT': '3307',
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
