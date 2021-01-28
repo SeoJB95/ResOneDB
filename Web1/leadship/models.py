@@ -17,9 +17,9 @@ class CfdMethod(models.Model):
 
 
 class CfdStarccmPowResults(models.Model):
-    project_no = models.OneToOneField('PropellerMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    prop_status = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
+    project_no = models.OneToOneField('PropellerMainParticular',models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
+    version = models.ForeignKey('PropellerMainParticular',related_name='CCM_version',on_delete=  models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    prop_status = models.ForeignKey('PropellerMainParticular',related_name='CCM_prop_state',on_delete=  models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     geometry_file = models.TextField(db_column='GEOMETRY_FILE', blank=True, null=True)  # Field name made lowercase.
     java_file = models.TextField(db_column='JAVA_FILE', blank=True, null=True)  # Field name made lowercase.
     pow_stl_info_file = models.TextField(db_column='POW_STL_INFO_FILE', blank=True, null=True)  # Field name made lowercase.
@@ -36,8 +36,8 @@ class CfdStarccmPowResults(models.Model):
 
 class CfdStarccmResistanceResults(models.Model):
     project_no = models.OneToOneField('ShipDraftData', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    draft_name = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    version = models.ForeignKey('ShipDraftData',related_name='CCM_version', on_delete= models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    draft_name = models.ForeignKey('ShipDraftData',related_name='CCM_draft_name',on_delete=  models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     ship_speed = models.DecimalField(db_column='SHIP_SPEED', max_digits=4, decimal_places=2)  # Field name made lowercase.
     designer = models.CharField(db_column='DESIGNER', max_length=10, blank=True, null=True)  # Field name made lowercase.
     cr = models.DecimalField(db_column='CR', max_digits=6, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
@@ -64,8 +64,8 @@ class CfdStarccmResistanceResults(models.Model):
 
 class CfdWavis22ResistanceResults(models.Model):
     project_no = models.OneToOneField('ShipDraftData', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    draft_name = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    version = models.ForeignKey('ShipDraftData',related_name='WAVIS_version', on_delete= models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    draft_name = models.ForeignKey('ShipDraftData',related_name='WAVIS_draft_name',on_delete=  models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     ship_speed = models.DecimalField(db_column='SHIP_SPEED', max_digits=4, decimal_places=2)  # Field name made lowercase.
     designer = models.CharField(db_column='DESIGNER', max_length=10, blank=True, null=True)  # Field name made lowercase.
     cr = models.DecimalField(db_column='CR', max_digits=6, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
@@ -104,7 +104,7 @@ class DraftName(models.Model):
 
 class ManeuveringImoCriteria(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ManeuveringImo_version',on_delete=  models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     init_turn = models.DecimalField(db_column='INIT_TURN', max_digits=6, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     advance = models.DecimalField(db_column='ADVANCE', max_digits=6, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -123,9 +123,9 @@ class ManeuveringImoCriteria(models.Model):
 
 class ModelTestCavitationPressure(models.Model):
     project_no = models.OneToOneField('ShipDraftData', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipDraftData',related_name='ModelTestCavitation_version', on_delete= models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
-    draft_name = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    draft_name = models.ForeignKey('ShipDraftData',related_name='ModelTestCavitation_draft_name',on_delete=  models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     ship_model_id = models.CharField(db_column='SHIP_MODEL_ID', max_length=15, blank=True, null=True)  # Field name made lowercase.
     prop_id = models.CharField(db_column='PROP_ID', max_length=15, blank=True, null=True)  # Field name made lowercase.
     rudder_no = models.IntegerField(db_column='RUDDER_NO', blank=True, null=True)  # Field name made lowercase.
@@ -192,7 +192,7 @@ class ModelTestCavitationPressure(models.Model):
 
 class ModelTestCrashStopAstern(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ModelTestCrashStopAstern_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropStatus', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     testdate = models.DateField(db_column='TESTDATE', blank=True, null=True)  # Field name made lowercase.
@@ -222,8 +222,8 @@ class ModelTestCrashStopAstern(models.Model):
 
 class ModelTestPropellerOpenWater(models.Model):
     project_no = models.OneToOneField('PropellerMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    prop_status = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
+    version = models.ForeignKey('PropellerMainParticular',related_name='ModelTestPropellerOpenWater_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    prop_status = models.ForeignKey('PropellerMainParticular',related_name='ModelTestPropellerOpenWater_prop_status',on_delete= models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     prop_id = models.CharField(db_column='PROP_ID', max_length=15, blank=True, null=True)  # Field name made lowercase.
     water_temp = models.DecimalField(db_column='WATER_TEMP', max_digits=4, decimal_places=1, blank=True, null=True)  # Field name made lowercase.
     test_rps = models.DecimalField(db_column='TEST_RPS', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -244,8 +244,8 @@ class ModelTestPropellerOpenWater(models.Model):
 
 class ModelTestSelfPropulsion(models.Model):
     project_no = models.OneToOneField('ShipDraftData', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    draft_name = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    version = models.ForeignKey('ShipDraftData',related_name='ModelTestSelfPropulsion_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    draft_name = models.ForeignKey('ShipDraftData',related_name='ModelTestSelfPropulsion_draft_name', on_delete=models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     test_option = models.CharField(db_column='TEST_OPTION', max_length=25)  # Field name made lowercase.
     model_no = models.CharField(db_column='MODEL_NO', max_length=12, blank=True, null=True)  # Field name made lowercase.
@@ -310,7 +310,7 @@ class ModelTestSelfPropulsion(models.Model):
 
 class ModelTestStopping(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ModelTestStopping_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropStatus', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     eng_power = models.IntegerField(db_column='ENG_POWER')  # Field name made lowercase.
@@ -336,7 +336,7 @@ class ModelTestStopping(models.Model):
 
 class ModelTestTurning(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ModelTestTurning_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropStatus', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     eng_power = models.IntegerField(db_column='ENG_POWER')  # Field name made lowercase.
@@ -373,8 +373,8 @@ class ModelTestTurning(models.Model):
 
 class ModelTestWakeHarmonic(models.Model):
     project_no = models.OneToOneField('ShipDraftData', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    draft_name = models.ForeignKey('ShipDraftData', models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    version = models.ForeignKey('ShipDraftData',related_name='ModelTestWakeHarmonic_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    draft_name = models.ForeignKey('ShipDraftData',related_name='ModelTestWakeHarmonic_draft_name', on_delete=models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     test_option = models.CharField(db_column='TEST_OPTION', max_length=25)  # Field name made lowercase.
     test_no = models.CharField(db_column='TEST_NO', max_length=15, blank=True, null=True)  # Field name made lowercase.
     test_date = models.DateField(db_column='TEST_DATE', blank=True, null=True)  # Field name made lowercase.
@@ -400,7 +400,7 @@ class ModelTestWakeHarmonic(models.Model):
 
 class ModelTestZigzag(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ModelTestZigzag_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropStatus', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     eng_power = models.IntegerField(db_column='ENG_POWER')  # Field name made lowercase.
@@ -430,7 +430,7 @@ class ModelTestZigzag(models.Model):
 
 class PressureFluctuationTest(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='PressureFluctuationTest_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey('PropStatus', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     serial_no = models.IntegerField(db_column='SERIAL_NO')  # Field name made lowercase.
@@ -474,8 +474,8 @@ class PropStatus(models.Model):
 
 class PropellerGeometry(models.Model):
     project_no = models.OneToOneField('PropellerMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
-    prop_status = models.ForeignKey('PropellerMainParticular', models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
+    version = models.ForeignKey('PropellerMainParticular',related_name='PropellerGeometry_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    prop_status = models.ForeignKey('PropellerMainParticular',related_name='PropellerGeometry_prop_status', on_delete=models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     geometry = models.TextField(db_column='GEOMETRY', blank=True, null=True)  # Field name made lowercase.
     comments = models.CharField(db_column='COMMENTS', max_length=250, blank=True, null=True)  # Field name made lowercase.
     offset = models.TextField(db_column='OFFSET', blank=True, null=True)  # Field name made lowercase.
@@ -488,7 +488,7 @@ class PropellerGeometry(models.Model):
 
 class PropellerMainParticular(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='PropellerMainParticular_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey(PropStatus, models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
     manufacturer = models.CharField(db_column='MANUFACTURER', max_length=15, blank=True, null=True)  # Field name made lowercase.
     design_dept = models.CharField(db_column='DESIGN_DEPT', max_length=15, blank=True, null=True)  # Field name made lowercase.
@@ -548,7 +548,7 @@ class PropellerMainParticular(models.Model):
 
 class ShipDraftData(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ShipDraftData_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     draft_name = models.ForeignKey(DraftName, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     lwl = models.DecimalField(db_column='LWL', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     draft_fore = models.DecimalField(db_column='DRAFT_FORE', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -597,7 +597,7 @@ class ShipDraftData(models.Model):
 
 class ShipHullParticular(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ShipHullParticular_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     mother_fore = models.DecimalField(db_column='MOTHER_FORE', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     mother_aft = models.DecimalField(db_column='MOTHER_AFT', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     model_no = models.CharField(db_column='MODEL_NO', max_length=12, blank=True, null=True)  # Field name made lowercase.
@@ -665,7 +665,7 @@ class ShipHullParticular(models.Model):
 
 class ShipInitialDesignResult(models.Model):
     project_no = models.OneToOneField('ShipMainParticular', models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey('ShipMainParticular', models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey('ShipMainParticular',related_name='ShipInitialDesignResult_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     png_main_dim_review = models.TextField(db_column='PNG_MAIN_DIM_REVIEW', blank=True, null=True)  # Field name made lowercase.
     png_main_eng_review = models.TextField(db_column='PNG_MAIN_ENG_REVIEW', blank=True, null=True)  # Field name made lowercase.
     png_navigation_review = models.TextField(db_column='PNG_NAVIGATION_REVIEW', blank=True, null=True)  # Field name made lowercase.
@@ -773,9 +773,9 @@ class ShipMainParticular(models.Model):
 
 class ShipPropulsionResults(models.Model):
     project_no = models.OneToOneField(ShipDraftData, models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey(ShipDraftData, models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey(ShipDraftData,related_name='ShipPropulsionResults_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     prop_status = models.ForeignKey(PropellerMainParticular, models.DO_NOTHING, db_column='PROP_STATUS')  # Field name made lowercase.
-    draft_name = models.ForeignKey(ShipDraftData, models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
+    draft_name = models.ForeignKey(ShipDraftData,related_name='ShipPropulsionResults_draft_name', on_delete=models.DO_NOTHING, db_column='DRAFT_NAME')  # Field name made lowercase.
     speed = models.DecimalField(db_column='SPEED', max_digits=5, decimal_places=2)  # Field name made lowercase.
     fn = models.DecimalField(db_column='FN', max_digits=6, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
     ctm = models.DecimalField(db_column='CTM', max_digits=6, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
@@ -813,7 +813,7 @@ class ShipPropulsionResults(models.Model):
 
 class ShipRudderGeometry(models.Model):
     project_no = models.OneToOneField(ShipMainParticular, models.DO_NOTHING, db_column='PROJECT_NO', primary_key=True)  # Field name made lowercase.
-    version = models.ForeignKey(ShipMainParticular, models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
+    version = models.ForeignKey(ShipMainParticular,related_name='ShipRudderGeometry_version', on_delete=models.DO_NOTHING, db_column='VERSION')  # Field name made lowercase.
     rudder_type = models.CharField(db_column='RUDDER_TYPE', max_length=25, blank=True, null=True)  # Field name made lowercase.
     area = models.DecimalField(db_column='AREA', max_digits=7, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
     area_ratio = models.DecimalField(db_column='AREA_RATIO', max_digits=7, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
