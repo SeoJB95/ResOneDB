@@ -4,6 +4,6 @@ from django.http import HttpResponse, Http404
 
 def index(request):
     msg = 'My First Message'
-    return render(request, 'index.html',{'count':10})
+    return render(request, 'index.html',{'test':'This is New World!!!'})
 def error(request):
     raise Http404('Not Found')

@@ -4,7 +4,7 @@
 {% block title %}
     <h3>
         <img src="{% static 'images/note.jpg' %}" style="width:50px" />
-        Feedback List
+        Ship List
     </h3>
 {% endblock title %}
 
@@ -14,7 +14,12 @@
     </p>
 
     <table class="table">
-        <tr><th>project No</th><th>Version</th><th>Builder</th><th>Length</th></tr>
+        <tr>
+          <th>Project No</th>
+          <th>Version</th>
+          <th>Builder</th>
+          <th>Length</th>
+        </tr>
         {% for ship in ship_input %}
             <tr>
                 <td>
