@@ -14,15 +14,15 @@
     </p>
 
     <table class="table">
-        <tr><th>Id</th><th>Name</th><th>Email</th><th>Phone</th></tr>
-        {% for item in feedbacks %}
+        <tr><th>project No</th><th>Version</th><th>Builder</th><th>Length</th></tr>
+        {% for ship in ship_input %}
             <tr>
                 <td>
-                    <a href="https://naver.com">{{ item.id }}</a>
+                    <a href="https://naver.com">{{ ship.purpose_of_proj }}</a>
                 </td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.phone }}</td>
+                <td>{{ ship.version }}</td>
+                <td>{{ ship.builder }}</td>
+                <td>{{ ship.ship_size }}</td>
             </tr>
         {% endfor %}
     </table>
